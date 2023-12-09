@@ -1,0 +1,6 @@
+num2words
+emot --upgrade
+langdetect
+deep-translator
+textblob
+vaderSentiment
