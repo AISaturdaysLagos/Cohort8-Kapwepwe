@@ -16,16 +16,19 @@ import nltk
 import os
 import string
 import numpy as np
-import copy
 import pandas as pd
 import pickle
 import re
 import math
 
+nltk.download('wordnet')
 nltk.download('stopwords')
 nltk.download('punkt')
 
-restaurants_init = pd.read_csv('C:/Cohort8-Kapwepwe/Restaurants_TripAdvisor/Data Cleaning and Exploration/clean_lagos_restaurants.csv')
+dir_name = os.path.abspath(os.path.dirname(__file__))
+location = os.path.join(dir_name, 'clean_lagos_restaurants.csv')
+
+restaurants_init = pd.read_csv(location)
 
 # removing manager feedback
 feedback_string = 'Thank you for'
@@ -53,19 +56,6 @@ def convert_emojis(text):
 restaurants_init['review_text'] = restaurants_init['review_text'].apply(convert_emojis)
 restaurants_init['review_title'] = restaurants_init['review_title'].apply(convert_emojis)
 
-
-# translating to english only
-from langdetect import detect
-from deep_translator import GoogleTranslator
-
-for rec in restaurants_init['review_text']:
-  result_lang = detect(rec)
-  if result_lang == 'en':
-    rec = rec
-  else:
-    rec = GoogleTranslator(target='en').translate(str(rec))
-    # rec = translator.translate(rec, lang_src=result_lang, lang_tgt='en')
-
 # removing stopwords in the review text
 stop_words = stopwords.words('english')
 restaurants_init['review_text'] = restaurants_init['review_text'].apply(lambda x: " ".join(x for x in x.split() if x not in stop_words))
@@ -74,14 +64,15 @@ restaurants_init['review_text'] = restaurants_init['review_text'].apply(lambda x
 restaurants_init['review_title'] = restaurants_init['review_title'].apply(lambda x: " ".join(x for x in x.split() if x not in stop_words))
 
 # removing punctuation
-punctuation_and_symbols = "`~!@#$%^&*()-_+=[\]{|};:'<>.,?/\n"
-for _ in range(len(punctuation_and_symbols)):
-  restaurants_init['review_text'] = restaurants_init['review_text'].str.replace(punctuation_and_symbols[_], ' ', regex=True)
-  restaurants_init['review_title'] = restaurants_init['review_title'].str.replace(punctuation_and_symbols[_], ' ', regex=True)
-  restaurants_init['review_text'] = restaurants_init['review_text'].str.replace("  ", " ")
-  restaurants_init['review_title'] = restaurants_init['review_title'].str.replace("  ", " ")
+punctuation_and_symbols = r'\[^\w\s\]'
+restaurants_init['review_text'] = restaurants_init['review_text'].str.replace(punctuation_and_symbols, ' ', regex=True)
+restaurants_init['review_title'] = restaurants_init['review_title'].str.replace(punctuation_and_symbols, ' ', regex=True)
+
+restaurants_init['review_text'] = restaurants_init['review_text'].str.replace("  ", " ")
+restaurants_init['review_title'] = restaurants_init['review_title'].str.replace("  ", " ")
 
 # lemmatizing
+import corpora
 from textblob import Word
 
 restaurants_init['review_text'] = restaurants_init['review_text'].apply(lambda x: " ".join([Word(word).lemmatize() for word in x.split()]))

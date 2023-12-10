@@ -1,7 +1,0 @@
-num2words
-emot
-langdetect
-deep-translator
-textblob
-vaderSentiment
-streamlit
