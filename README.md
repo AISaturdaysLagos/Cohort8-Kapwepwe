@@ -26,18 +26,19 @@ Step-by-step instructions on how to install and set up the project
 ## Requirements:
 - **Data Sourcing:** Data was scraped from <a href="https://www.tripadvisor.com/">TripAdvisor</a> - mainly restaurants and hotels in Lagos, Nigeria.
 - **Data Cleaning and Prep**: Data was labelled and cleaned using Excel and Pandas to remove noise or meaningless data that could affect the accuracy of the model.
-- **Modeling**: The data underwent classification through the application of sentiment analysis with the VADER (Valence Aware Dictionary and sEntiment Reasoner) package, which is a sentiment analysis tool tuned to social media sentiment.
+- **Modeling**: The data underwent classification through the application of sentiment analysis with the VADER (Valence Aware Dictionary and sEntiment Reasoner) package, which is a sentiment analysis tool tuned to social media language.
 - **Model Deployment :** The model would be deployed using a web app for use by everyone particularly Nigerians.
 - **Requirements.txt**: A file for all dependecies required. There's one in the Restaurants folder and another in the Hotels folder.
 
 ## Challenges faced:
 - Scraping reviews from Google. There are more restaurants reviewed with Google than TripAdvisor, since TripAdvisor needs creating an account. This limited our scope to just TripAdvisor.
-- VADER sentiment does not accurately detect sarcasm in Nigerian English as some of the reviews came off as sarcastic but were rated positive.
+- The sentiment analysis seemed more accurate with the review titles, because some of the review text reviews came off as sarcastic.
+- VADER sentiment does not accurately detect sarcasm in Nigerian English as some of the obviously negative titles with sarcastic review texts were rated positive.
 - Deploying with Streamlit. Worked fine on local machine and then gave many issues during deployment. 
 
 ## Potential work:
 - Scrapping reviews from more sites. This will help give a better accurate overall sentiment.
-- Training our model in the Nigerian English context.
+- Training model in the Nigerian English context and on sarcasm.
 
 ## Acknowledgments
 ### Contributors
