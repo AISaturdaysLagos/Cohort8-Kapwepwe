@@ -108,20 +108,23 @@ import streamlit as st
 
 st.title("Lagos Restaurants Sentiment Analyser App")
 st.write("Get an accurate feel of what people think about a restaurant's service!")
+st.write("For restaurants with different locations, kindly add it, i.e. VI, Lekki!")
+
+st.write("This app takes 30 seconds to run")
 
 form = st.form(key='sentiment-form')
 user_input = form.text_area("Enter a restaurant's name")
 submit = form.form_submit_button('Submit')
 
-condition = user_input in result['restaurant_name'].values
+condition = result['restaurant_name'].str.contains(user_input, regex=True)
 
 if submit:
   if condition == True:
-    label = user_input
+    label = result.loc[condition][0]
     whole_row = result[result['restaurant_name'] == label]
     score = whole_row['opinion'].values[0]
     if score == 'Positive':
-      st.success(f'Many customer find {label} a good place to spend their money!')
+      st.success(f'Many customers find {label} a good place to spend their money!')
     elif score == 'Negative' or score == 'Neutral':
       st.success(f'The average customer finds {label} not so great for eating out. Maybe try somewhere else?')
   else:
