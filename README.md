@@ -41,6 +41,8 @@ Step-by-step instructions on how to install and set up the project
 - Training model in the Nigerian English context and on sarcasm.
 
 ## Acknowledgments
+We'd like to thank the AI Saturdays Lagos Team for the impactful classes!
+
 ### Contributors
 - Daniel Otulagun
 - Sarah Akinkunmi
