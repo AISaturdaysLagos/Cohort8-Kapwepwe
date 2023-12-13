@@ -56,6 +56,7 @@ def convert_emojis(text):
 restaurants_init['review_text'] = restaurants_init['review_text'].apply(convert_emojis)
 restaurants_init['review_title'] = restaurants_init['review_title'].apply(convert_emojis)
 
+
 # removing stopwords in the review text
 stop_words = stopwords.words('english')
 restaurants_init['review_text'] = restaurants_init['review_text'].apply(lambda x: " ".join(x for x in x.split() if x not in stop_words))
@@ -114,16 +115,19 @@ form = st.form(key='sentiment-form')
 user_input = form.text_area("Enter a restaurant's name")
 submit = form.form_submit_button('Submit')
 
-condition = user_input in result['restaurant_name'].values
+matched_restaurant_names = [x for x in result['restaurant_name'].values if user_input.lower() in x.lower()]
+condition = len(matched_restaurant_names) > 0
+is_loading = True
+
 
 if submit:
   if condition == True:
-    label = user_input
-    whole_row = result[result['restaurant_name'] == label]
-    score = whole_row['opinion'].values[0]
-    if score == 'Positive':
-      st.success(f'Many customers find {label} a good place to spend their money!')
-    elif score == 'Negative' or score == 'Neutral':
-      st.success(f'The average customer finds {label} not so great for eating out. Maybe try somewhere else?')
+    for restaurant_name in matched_restaurant_names:
+      whole_row = result[result['restaurant_name'] == restaurant_name]
+      score = whole_row['opinion'].values[0]
+      if score == 'Positive':
+        st.success(f'Many customers find {restaurant_name} a good place to spend their money!')
+      elif score == 'Negative' or score == 'Neutral':
+        st.success(f'The average customer finds {restaurant_name} not so great for eating out. Maybe try somewhere else?')
   else:
       st.error(f'{user_input} is not in our database, we apologize about that.')
