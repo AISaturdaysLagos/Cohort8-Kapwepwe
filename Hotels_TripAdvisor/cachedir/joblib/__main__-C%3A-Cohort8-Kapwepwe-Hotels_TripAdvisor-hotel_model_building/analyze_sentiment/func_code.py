@@ -1,19 +1,4 @@
-from nltk.corpus import stopwords
-from textblob import Word
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from emot.emo_unicode import UNICODE_EMOJI
-from joblib import Memory
-
-import nltk
-import pandas as pd
-import streamlit as st
-
-nltk.download('wordnet')
-nltk.download('stopwords')
-nltk.download('punkt')
-
-cachedir = './cachedir'
-memory = Memory(location=cachedir, verbose=0)
+# first line: 17
 @memory.cache
 def analyze_sentiment(hotels):
     # Preprocessing
@@ -60,36 +45,3 @@ def analyze_sentiment(hotels):
     result = all_hotels.groupby('hotel_name')['Sentiment'].value_counts().unstack().fillna(0)
     result['opinion'] = result[['Negative', 'Neutral', 'Positive']].idxmax(axis=1)
     return result.reset_index()
-
-# Load CSV
-location = 'Data Cleaning and Exploration/clean_lagos_hotels.csv'
-hotels = pd.read_csv(location)
-
-st.title("Lagos Hotel's Sentiment Analyser App")
-st.write("Get an accurate feel of what people think about a hotel's service!")
-st.write("For hotel's with different locations, kindly add it, i.e. VI, Lekki, Ikeja")
-
-st.write("Check out our [restaurant analyser](https://lag-rest.streamlit.app/)")
-
-form = st.form(key='sentiment-form')
-user_input = form.text_area("Kindly enter a hotel's name")
-submit = form.form_submit_button('Submit')
-
-# Check if the user-input hotel exists
-matched_hotel_names = [x for x in set(hotels['hotel_name'].values) if isinstance(x, str) and user_input.lower() in x.lower()]
-doesUserHotelExist = len(matched_hotel_names) > 0
-
-if submit:
-    if not doesUserHotelExist:
-        st.error(f'{user_input} is not in our database, we apologize about that.')
-    else:
-        # Display results
-        result = analyze_sentiment(hotels)
-        for hotel_name in matched_hotel_names:
-            whole_row = result[result['hotel_name'] == hotel_name]
-            score = whole_row['opinion'].values[0]
-            if score == 'Positive':
-                st.success(f'Many customers find {hotel_name} a good place to spend their money!')
-            elif score == 'Negative' or score == 'Neutral':
-                st.success(
-                    f'The average customer finds {hotel_name} not so great for staying in. Maybe try somewhere else?')
