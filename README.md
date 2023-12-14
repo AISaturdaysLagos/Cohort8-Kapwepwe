@@ -4,6 +4,7 @@
 Choosing hotels and restaurants is a time-consuming process, often involving weeks of deliberation. To make informed decisions, prospective guests increasingly rely on online reviews, which sometimes contain huge volume of comments - some of which may be manipulated. Our goal is to empower Nigerians in making better informed choices and help restaurants and hotels improve their services by leveraging guest feedback. This study's potential extends to diverse areas within the hospitality industry, such as tourism, travel, recreation, and entertainment.
 
 Check the deployed restaurant sentiment analyzer model [**here**](https://lag-rest.streamlit.app/).
+Check the deployed hotel sentiment analyzer model [**here**](https://lag-hotel.streamlit.app/).
 
 ## Table of Contents
 
@@ -12,8 +13,9 @@ Check the deployed restaurant sentiment analyzer model [**here**](https://lag-re
 Step-by-step instructions on how to install and set up the project
 
 - Fork the repo and download to your system.
-- In your working directory, run `pip install -r requirements.txt` in your terminal
-- Run `streamlit run restaurant-model-building.py`
+- In your working directory, you can 
+    - cd into the restaurant folder, run `pip install -r requirements.txt` in your terminal and then run `streamlit run restaurant-model-building.py` or
+    - cd into the hotel folder, run `pip install -r requirements.txt` in your terminal and then run `streamlit run hotel-model-building.py` 
 
 ### Resources that inspired the project
 - Singh, H. (2006) The importance of customer satisfaction in relation to customer loyalty ..., The Importance of Customer Satisfaction in Relation to Customer Loyalty and  Retention. Available at: https://www.van-haaften.nl/images/documents/pdf/The%20Importance%20of%20Customer%20Satisfaction%20in%20Relation%20to%20Customer%20Loyalty%20and%20Retention.pdf (Accessed: 15 October 2023).
@@ -27,12 +29,12 @@ Step-by-step instructions on how to install and set up the project
 - **Data Sourcing:** Data was scraped from <a href="https://www.tripadvisor.com/">TripAdvisor</a> - mainly restaurants and hotels in Lagos, Nigeria.
 - **Data Cleaning and Prep**: Data was labelled and cleaned using Excel and Pandas to remove noise or meaningless data that could affect the accuracy of the model.
 - **Modeling**: The data underwent classification through the application of sentiment analysis with the VADER (Valence Aware Dictionary and sEntiment Reasoner) package, which is a sentiment analysis tool tuned to social media language.
-- **Model Deployment :** The model would be deployed using a web app for use by everyone particularly Nigerians.
+- **Model Deployment :** The model was deployed using Streamlit for use by everyone particularly Nigerians.
 - **Requirements.txt**: A file for all dependecies required. There's one in the Restaurants folder and another in the Hotels folder.
 
 ## Challenges faced:
-- Scraping reviews from Google. There are more restaurants reviewed with Google than TripAdvisor, since TripAdvisor needs creating an account. This limited our scope to just TripAdvisor.
-- The sentiment analysis seemed more accurate with the review titles, because some of the review text reviews came off as sarcastic.
+- Scraping reviews from Google. There are more restaurants reviewed with Google than TripAdvisor and also more people reviewing on Google, since TripAdvisor needs creating an account. This limited our scope to just TripAdvisor.
+- The sentiment analysis seemed more accurate with the review titles, because some of the review text reviews came off as sarcastic. However, we analysed just the text
 - VADER sentiment does not accurately detect sarcasm in Nigerian English as some of the obviously negative titles with sarcastic review texts were rated positive.
 - Deploying with Streamlit. Worked fine on local machine and then gave many issues during deployment. 
 
@@ -41,7 +43,7 @@ Step-by-step instructions on how to install and set up the project
 - Training model in the Nigerian English context and on sarcasm.
 
 ## Acknowledgments
-We'd like to thank the AI Saturdays Lagos Team for the impactful classes!
+We'd like to thank the AI Saturdays Lagos Organizing Team and the Instructors for the impactful classes!
 
 ### Contributors
 - Daniel Otulagun
