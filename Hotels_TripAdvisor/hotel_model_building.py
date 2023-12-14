@@ -3,6 +3,7 @@ from textblob import Word
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from emot.emo_unicode import UNICODE_EMOJI
 from joblib import Memory
+import os
 
 import nltk
 import pandas as pd
