@@ -120,7 +120,7 @@ condition = len(matched_restaurant_names) > 0
 
 if submit:
   if not user_input or not user_input.strip():
-    st.error("The hotel name field is required")
+    st.error("The restaurant name field is required")
   else: 
     if condition == True:
       for restaurant_name in matched_restaurant_names:
