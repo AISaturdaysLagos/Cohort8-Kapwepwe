@@ -74,7 +74,7 @@ st.write("For hotel's with different locations, kindly add it, i.e. VI, Lekki, I
 st.write("Check out our [restaurant analyser](https://lag-rest.streamlit.app/)")
 
 form = st.form(key='sentiment-form')
-user_input = form.text_area("Kindly enter a hotel's name")
+user_input = form.text_area("Kindly enter a hotels name")
 submit = form.form_submit_button('Submit')
 
 # Check if the user-input hotel exists
