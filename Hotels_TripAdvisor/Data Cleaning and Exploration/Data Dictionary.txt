@@ -1,6 +1,8 @@
-1. `review_title` - A short text summing up the author's experience.
-2. `review_text` - Details of the author's experience.
-3. `stay_date` - The date the author booked the hotel.
-4. `room_tips` - Tips given for future users.
-5. `review_date` - The date the hotel was reviewed.
-7. `hotel_name` - The name of the establishment.
+1. review_title - A short text summing up the author's experience.
+2. review_text - Details of the author's experience.
+3. stay_date - The date the author booked the hotel.
+4. room_tips - Tips given for future users.
+5. review_date - The date the hotel was reviewed.
+6. author_rating - The average rating an author gave an hotel.
+7. overall_rating - The hotel's average rating.
+6. hotel_name - The name of the establishment.
