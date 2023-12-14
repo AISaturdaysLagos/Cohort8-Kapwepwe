@@ -17,9 +17,7 @@ import os
 import string
 import numpy as np
 import pandas as pd
-import pickle
-import re
-import math
+
 
 nltk.download('wordnet')
 nltk.download('stopwords')
@@ -111,14 +109,14 @@ st.title("Lagos Restaurants Sentiment Analyser App")
 st.write("Get an accurate feel of what people think about a restaurant's service!")
 st.write("For restaurants with different locations, kindly add it, i.e. VI, Lekki, Ikeja")
 
+st.write("Check out our [hotel analyser](https://lag-hotel.streamlit.app/)")
+
 form = st.form(key='sentiment-form')
 user_input = form.text_area("Enter a restaurant's name")
 submit = form.form_submit_button('Submit')
 
 matched_restaurant_names = [x for x in result['restaurant_name'].values if user_input.lower() in x.lower()]
 condition = len(matched_restaurant_names) > 0
-is_loading = True
-
 
 if submit:
   if condition == True:

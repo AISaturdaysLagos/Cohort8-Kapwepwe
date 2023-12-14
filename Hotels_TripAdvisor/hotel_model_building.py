@@ -4,6 +4,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from emot.emo_unicode import UNICODE_EMOJI
 from joblib import Memory
 
+import os
 import nltk
 import pandas as pd
 import streamlit as st
@@ -62,7 +63,8 @@ def analyze_sentiment(hotels):
     return result.reset_index()
 
 # Load CSV
-location = 'Data Cleaning and Exploration/clean_lagos_hotels.csv'
+dir_name = os.path.abspath(os.path.dirname(__file__))
+location = os.path.join(dir_name, 'clean_lagos_hotels.csv')
 hotels = pd.read_csv(location)
 
 st.title("Lagos Hotel's Sentiment Analyser App")
