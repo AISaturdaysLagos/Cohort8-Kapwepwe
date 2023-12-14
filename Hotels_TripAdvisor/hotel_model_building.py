@@ -82,16 +82,19 @@ matched_hotel_names = [x for x in set(hotels['hotel_name'].values) if isinstance
 doesUserHotelExist = len(matched_hotel_names) > 0
 
 if submit:
-    if not doesUserHotelExist:
-        st.error(f'{user_input} is not in our database, we apologize about that.')
-    else:
-        # Display results
-        result = analyze_sentiment(hotels)
-        for hotel_name in matched_hotel_names:
-            whole_row = result[result['hotel_name'] == hotel_name]
-            score = whole_row['opinion'].values[0]
-            if score == 'Positive':
-                st.success(f'Many customers find {hotel_name} a good place to spend their money!')
-            elif score == 'Negative' or score == 'Neutral':
-                st.success(
-                    f'The average customer finds {hotel_name} not so great for staying in. Maybe try somewhere else?')
+    if not user_input or not user_input.strip():
+        st.error("The hotel name field is required")
+    else:    
+        if not doesUserHotelExist:
+            st.error(f'{user_input} is not in our database, we apologize about that.')
+        else:
+            # Display results
+            result = analyze_sentiment(hotels)
+            for hotel_name in matched_hotel_names:
+                whole_row = result[result['hotel_name'] == hotel_name]
+                score = whole_row['opinion'].values[0]
+                if score == 'Positive':
+                    st.success(f'Many customers find {hotel_name} a good place to spend their money!')
+                elif score == 'Negative' or score == 'Neutral':
+                    st.success(
+                        f'The average customer finds {hotel_name} not so great for staying in. Maybe try somewhere else?')
