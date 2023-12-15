@@ -3,8 +3,9 @@
 ## Project description
 Choosing hotels and restaurants is a time-consuming process, often involving weeks of deliberation. To make informed decisions, prospective guests increasingly rely on online reviews, which sometimes contain huge volume of comments - some of which may be manipulated. Our goal is to empower Nigerians in making better informed choices and help restaurants and hotels improve their services by leveraging guest feedback. This study's potential extends to diverse areas within the hospitality industry, such as tourism, travel, recreation, and entertainment.
 
-Check the deployed restaurant sentiment analyzer model [**here**](https://lag-rest.streamlit.app/).
-Check the deployed hotel sentiment analyzer model [**here**](https://lag-hotel.streamlit.app/).
+Check the deployed restaurant sentiment analyzer model [**here**](https://lag-rest.streamlit.app/) and the hotel sentiment analyzer model [**here**](https://lag-hotel.streamlit.app/).
+
+[Project presentation slides can be found here.](https://docs.google.com/presentation/d/12PMJWZ2RIBM7105fDjsUnbOGbIGXxfMPWINB02YbZ7k/edit?usp=sharing)
 
 ## Table of Contents
 
