@@ -84,6 +84,8 @@ doesUserHotelExist = len(matched_hotel_names) > 0
 if submit:
     if not user_input or not user_input.strip():
         st.error("The hotel name field is required")
+    elif len(user_input) == 1:
+        st.error("Please type out full restaurant name")
     else:    
         if not doesUserHotelExist:
             st.error(f'{user_input} is not in our database, we apologize about that.')
