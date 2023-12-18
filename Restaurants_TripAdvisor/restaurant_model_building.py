@@ -121,6 +121,8 @@ condition = len(matched_restaurant_names) > 0
 if submit:
   if not user_input or not user_input.strip():
     st.error("The restaurant name field is required")
+  elif len(user_input) == 1:
+    st.error("Please type out full restaurant name")
   else: 
     if condition == True:
       for restaurant_name in matched_restaurant_names:
