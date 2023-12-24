@@ -1,21 +1,4 @@
-from nltk.corpus import stopwords
-from emot.emo_unicode import UNICODE_EMOJI, EMOTICONS_EMO
-from textblob import Word
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from joblib import Memory
-
-import nltk
-import os
-import numpy as np
-import pandas as pd
-import streamlit as st
-
-nltk.download('wordnet')
-nltk.download('stopwords')
-nltk.download('punkt')
-
-cachedir = './cachedir'
-memory = Memory(location=cachedir, verbose=0)
+# first line: 19
 @memory.cache
 def analyze_sentiment(restaurants_init):
   #Preprocessing
@@ -75,41 +58,3 @@ def analyze_sentiment(restaurants_init):
   result['opinion'] = result[['Negative','Neutral', 'Positive']].idxmax(axis=1)
 
   return result.reset_index()
-
-
-# Load CSV
-dir_name = os.path.abspath(os.path.dirname(__file__))
-location = os.path.join(dir_name, 'clean_lagos_restaurants.csv')
-restaurants_init = pd.read_csv(location)
-
-st.title("Lagos Restaurants Sentiment Analyser App")
-st.write("Get an accurate feel of what people think about a restaurant's service!")
-st.write("For restaurants with different locations, kindly add it, i.e. VI, Lekki, Ikeja")
-
-st.write("Check out our [hotel analyser](https://lag-hotel.streamlit.app/)")
-
-form = st.form(key='sentiment-form')
-user_input = form.text_area("Enter a restaurant's name")
-submit = form.form_submit_button('Submit')
-
-# Check if the user-input hotel exists
-matched_restaurant_names = [x for x in set(restaurants_init['restaurant_name'].values) if isinstance(x, str) and user_input.lower() in x.lower()]
-does_restaurant_exist = len(matched_restaurant_names) > 0
-
-if submit:
-  if not user_input or not user_input.strip():
-    st.error("The restaurant name field is required")
-  elif len(user_input) == 1:
-    st.error("Please type out full restaurant name")
-  else: 
-    if does_restaurant_exist:
-      result = analyze_sentiment(restaurants_init)
-      for restaurant_name in matched_restaurant_names:
-        whole_row = result[result['restaurant_name'] == restaurant_name]
-        score = whole_row['opinion'].values[0]
-        if score == 'Positive':
-          st.success(f'Many customers find {restaurant_name} a good place to spend their money!')
-        elif score == 'Negative' or score == 'Neutral':
-          st.success(f'The average customer finds {restaurant_name} not so great for eating out. Maybe try somewhere else?')
-    else:
-        st.error(f'{user_input} is not in our database, we apologize about that.')

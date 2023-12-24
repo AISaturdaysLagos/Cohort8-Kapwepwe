@@ -69,12 +69,12 @@ hotels = pd.read_csv(location)
 
 st.title("Lagos Hotel's Sentiment Analyser App")
 st.write("Get an accurate feel of what people think about a hotel's service!")
-st.write("For hotel's with different locations, kindly add it, i.e. VI, Lekki, Ikeja")
+st.write("For hotels with different locations, kindly add it, i.e. VI, Lekki, Ikeja")
 
 st.write("Check out our [restaurant analyser](https://lag-rest.streamlit.app/)")
 
 form = st.form(key='sentiment-form')
-user_input = form.text_area("Kindly enter a hotels name")
+user_input = form.text_area("Kindly enter a hotel's name")
 submit = form.form_submit_button('Submit')
 
 # Check if the user-input hotel exists
